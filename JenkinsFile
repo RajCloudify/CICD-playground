@@ -1,1 +1,27 @@
+pipeline {
+    agent any
 
+    stages {
+        stage('git clone') {
+            steps {
+                git branch: 'main', url: 'https://github.com/RajCloudify/Terraform-Practice.git'
+            }
+        }
+        stage('init') {
+            steps {
+                sh '''
+                   cd Day-2-Basic-Code
+                   terraform init
+                   '''
+            }
+        }
+        stage('plan') {
+            steps {
+                sh '''
+                   cd Day-2-Basic-Code
+                   terraform plan 
+                   '''
+            }
+        }
+    }
+}
