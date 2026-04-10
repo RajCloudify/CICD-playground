@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('git check out') {
+            steps {
+                git branch: 'main', url: 'https://github.com/RajCloudify/TerraformTrail.git'
+            }
+        }
+        stage('init') {
+            steps {
+                sh '''
+                      cd D1_Teraform_basic_config
+                      terraform init
+                      '''
+            }
+        }
+        stage('plan') {
+            steps {
+                sh '''
+                      cd D1_Teraform_basic_config
+                      terraform plan
+                      '''
+            }
+        }
+        stage('stage-3 apply') {
+            steps {
+                sh '''
+                      cd D1_Teraform_basic_config
+                      terraform apply --auto-approve
+                      '''
+            }
+        }
+    }
+}
